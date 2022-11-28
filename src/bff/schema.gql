@@ -13,12 +13,10 @@ type Powerstats {
     combat: Int
 }
 
-// Used for fetching and reading
 type Query {
     getAllSuperheroes: [Superhero]!
 }
 
-// Used for creating, updating and deleting
 type Mutation {
     createSuperhero(input: CreateSuperheroInput): Superhero
     updateSuperheroStats(input: UpdateSuperheroStatsInput): Superhero
