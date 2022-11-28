@@ -1,0 +1,36 @@
+type Superhero {
+    id: ID!
+    name: String
+    powerstats: Powerstats!
+    imageURL: String!
+}
+
+type Powerstats {
+    intelligence: Int
+    strength: Int
+    durability: Int
+    power: Int
+    combat: Int
+}
+
+// Used for fetching and reading
+type Query {
+    getAllSuperheroes: [Superhero]!
+}
+
+// Used for creating, updating and deleting
+type Mutation {
+    createSuperhero(input: CreateSuperheroInput): Superhero
+    updateSuperheroStats(input: UpdateSuperheroStatsInput): Superhero
+    deleteSuperhero: Superhero
+}
+
+input CreateSuperheroInput {
+    name: String!
+    powerstats: Powerstats!
+    imageURL: String!
+}
+
+input UpdateSuperheroStatsInput {
+    powerstats: Powerstats!
+}

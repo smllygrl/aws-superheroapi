@@ -1,0 +1,9 @@
+GraphQL
+
+- Language that describes an API request
+
+- Schema & Resolvers
+
+- Mutations & Queries: treat as if they are their own API end points
+
+- GraphQL is just a layer between the frontend and the backend
