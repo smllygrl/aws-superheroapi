@@ -1,4 +1,4 @@
-service: dynamodb-crud-api
+service: aws-superheroapi
 
 provider:
   name: aws
@@ -6,74 +6,74 @@ provider:
   stage: dev
   region: ap-southeast-2
   environment:
-    DYNAMODB_TABLE_NAME: ${self:custom.postsTableName}
+    DYNAMODB_TABLE_NAME: ${self:custom.superheroTableName}
 
 custom:
-  postsTableName: posts-table-${self:provider.stage}
+  superheroTableName: superhero-table-${self:provider.stage}
 
 plugins:
   - serverless-iam-roles-per-function
 
 functions:
-  getPost:
-    handler: api.getPost
-    name: get-post
+  getSuperhero:
+    handler: api.getSuperhero
+    name: get-superhero
     memorySize: 128 # mb
     timeout: 5 # seconds
     events:
       - http:
-          path: post/{postId}
+          path: superheroes/{superheroId}
           method: GET
     iamRoleStatements:
       - Effect: "Allow"
         Action:
           - "dynamodb:GetItem"
-        Resource: !GetAtt PostsTable.Arn # Amazon Reference Number?
-  createPost:
-    handler: api.createPost
-    name: create-post
+        Resource: !GetAtt SuperheroesTable.Arn # Amazon Reference Number?
+  createSuperhero:
+    handler: api.createSuperhero
+    name: create-superhero
     memorySize: 128 # mb
     timeout: 5 # seconds
     events:
       - http:
-          path: post
+          path: superheroes
           method: POST
     iamRoleStatements:
       - Effect: "Allow"
         Action:
           - "dynamodb:PutItem"
-        Resource: !GetAtt PostsTable.Arn # Amazon Reference Number?
-  updatePost:
-    handler: api.updatePost
-    name: update-post
+        Resource: !GetAtt SuperheroesTable.Arn # Amazon Reference Number?
+  updateSuperhero:
+    handler: api.updateSuperhero
+    name: update-superhero
     memorySize: 128 # mb
     timeout: 5 # seconds
     events:
       - http:
-          path: post/{postId}
+          path: superheroes/{superheroeId}
           method: PUT
     iamRoleStatements:
       - Effect: "Allow"
         Action:
           - "dynamodb:UpdateItem"
-        Resource: !GetAtt PostsTable.Arn # Amazon Reference Number?
-  deletePost:
-    handler: api.deletePost
-    name: delete-post
+        Resource: !GetAtt SuperheroesTable.Arn # Amazon Reference Number?
+  deleteSuperhero:
+    handler: api.deleteSuperhero
+    name: delete-superhero
     memorySize: 128 # mb
     timeout: 5 # seconds
     events:
       - http:
-          path: post/{postId}
+          path: superheroes/{superheroeId}
           method: DELETE
     iamRoleStatements:
       - Effect: "Allow"
         Action:
           - "dynamodb:DeleteItem"
-        Resource: !GetAtt PostsTable.Arn # Amazon Reference Number?
-  getAllPosts:
-    handler: api.getAllPosts
-    name: get-all-posts
+        Resource: !GetAtt SuperheroesTable.Arn # Amazon Reference Number?
+  getAllSuperheroes:
+    handler: api.getAllSuperheroes
+    name: get-all-superheroes
     memorySize: 128 # mb
     timeout: 5 # seconds
     events:
@@ -84,20 +84,20 @@ functions:
       - Effect: "Allow"
         Action:
           - "dynamodb:Scan"
-        Resource: !GetAtt PostsTable.Arn # Amazon Reference Number?
+        Resource: !GetAtt SuperheroesTable.Arn # Amazon Reference Number?
 
 
 resources:
   Resources:
-    PostsTable: 
+    SupperheroesTable: 
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:custom.postsTableName}
+        TableName: ${self:custom.superheroTableName}
         AttributeDefinitions:
-        - AttributeName: postId
+        - AttributeName: superheroId
           AttributeType: S
         KeySchema:
-        - AttributeName: postId
+        - AttributeName: superheroId
           KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
