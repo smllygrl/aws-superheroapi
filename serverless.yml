@@ -6,10 +6,10 @@ provider:
   stage: dev
   region: ap-southeast-2
   environment:
-    DYNAMODB_TABLE_NAME: ${self:custom.superheroTableName}
+    DYNAMODB_TABLE_NAME: ${self:custom.superheroesTableName}
 
 custom:
-  superheroTableName: superhero-table-${self:provider.stage}
+  superheroesTableName: superheroes-table-${self:provider.stage}
 
 plugins:
   - serverless-iam-roles-per-function
@@ -50,7 +50,7 @@ functions:
     timeout: 5 # seconds
     events:
       - http:
-          path: superheroes/{superheroeId}
+          path: superheroes/{superheroId}
           method: PUT
     iamRoleStatements:
       - Effect: "Allow"
