@@ -89,7 +89,7 @@ functions:
 
 resources:
   Resources:
-    SupperheroesTable: 
+    SuperheroesTable: 
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ${self:custom.superheroTableName}
